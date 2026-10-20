@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>每日新闻</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="tb-left">
+      <h1 id="pageTitle">每日新闻</h1>
+      <div class="tb-date" id="pageDate">正在读取…</div>
+    </div>
+    <div class="tb-right">
+      <button class="round-btn" id="btnSettings" aria-label="设置">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3.2l1.5 2 2.5-.6.7 2.4 2.4.8-.6 2.5 2 1.5-2 1.5.6 2.5-2.4.8-.7 2.4-2.5-.6-1.5 2-1.5-2-2.5.6-.7-2.4-2.4-.8.6-2.5-2-1.5 2-1.5-.6-2.5 2.4-.8.7-2.4 2.5.6z"/></svg>
+      </button>
+      <button class="round-btn primary" id="btnRefresh" aria-label="刷新">
+        <svg viewBox="0 0 24 24"><path d="M12 5V2.2L7.4 6.1 12 10V7.2A4.8 4.8 0 1 1 7.2 12H4.6A7.4 7.4 0 1 0 12 4.6z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-cat="all">全部</button>
+    <button class="tab" data-cat="tech">科技</button>
+    <button class="tab" data-cat="deep">深度</button>
+    <button class="tab" data-cat="news">要闻</button>
+    <button class="tab" data-cat="lty">天依</button>
+    <button class="tab" data-cat="map">地图</button>
+  </nav>
+
+  <div class="tipbar" id="tipbar"></div>
+
+  <main class="feed" id="feed"></main>
+
+  <section class="mapwrap" id="mapwrap">
+    <div class="mapseg" id="mapseg">
+      <button class="seg on" data-scope="cn">中国</button>
+      <button class="seg" data-scope="world">世界</button>
+      <span class="mapcount" id="mapCount"></span>
+    </div>
+    <div class="mapcanvas" id="mapCanvas">
+      <svg id="mapSvg" viewBox="0 0 2000 1520" preserveAspectRatio="none">
+        <path id="mapLand"></path>
+      </svg>
+      <div class="pin-layer" id="pinLayer"></div>
+      <div class="map-hint">双指缩放 · 拖动平移</div>
+      <button class="map-reset" id="mapReset" aria-label="复位">⤾</button>
+    </div>
+    <div class="maplist-head">
+      <span id="mapListTitle">全部事件</span>
+      <em id="mapListN"></em>
+    </div>
+    <div class="feed maplist" id="mapList"></div>
+  </section>
+
+  <div class="empty" id="empty">
+    <div class="empty-ico">◍</div>
+    <div class="empty-t" id="emptyT">还没有新闻</div>
+    <div class="empty-d" id="emptyD">点右上角刷新按钮抓取</div>
+  </div>
+
+</div>
+
+<div class="sheet" id="sheet">
+  <div class="sheet-card">
+    <div class="sheet-bar">
+      <span>设置</span>
+      <button id="btnCloseSheet">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="srow">
+        <div class="srow-l"><b>每日推送时间</b><i>到点自动抓取最新内容并推通知</i></div>
+        <div class="srow-r"><input id="inHour" type="number" min="0" max="23" value="8"><span class="colon">:</span><input id="inMin" type="number" min="0" max="59" value="0"></div>
+      </div>
+      <div class="chips" id="chips">
+        <button class="chip" data-h="7" data-m="0">07:00</button>
+        <button class="chip on" data-h="8" data-m="0">08:00</button>
+        <button class="chip" data-h="12" data-m="0">12:00</button>
+        <button class="chip" data-h="21" data-m="0">21:00</button>
+      </div>
+      <div class="srow">
+        <div class="srow-l"><b>推送通知</b><i>关闭后只在打开 App 时更新</i></div>
+        <div class="srow-r"><label class="sw"><input type="checkbox" id="swNotify" checked><i></i></label></div>
+      </div>
+      <div class="srow">
+        <div class="srow-l"><b>加载新闻配图</b><i>会额外请求原文页面，费点流量</i></div>
+        <div class="srow-r"><label class="sw"><input type="checkbox" id="swImg" checked><i></i></label></div>
+      </div>
+      <div class="srow">
+        <div class="srow-l"><b>洛天依提醒</b><i>官号 / 相关资讯有新内容时提醒</i></div>
+        <div class="srow-r"><label class="sw"><input type="checkbox" id="swLty" checked><i></i></label></div>
+      </div>
+      <div class="srow">
+        <div class="srow-l"><b>测试通知</b><i>确认通知栏能看到本 App</i></div>
+        <div class="srow-r"><button class="btn ghost" id="btnTest">发一条</button></div>
+      </div>
+      <div class="sheet-foot">
+        <span class="hint">IT之家 · cnBeta · Solidot · 少数派 · 中新网 · 百度资讯 · B站</span>
+        <button class="btn primary" id="btnSave">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="mapdata.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
